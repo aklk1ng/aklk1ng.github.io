@@ -119,5 +119,5 @@ service_worker:
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/aklk1ng/aklk1ng.github.io.git
+  repo: https://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@github.com/aklk1ng/aklk1ng.github.io.git
   branch: main
