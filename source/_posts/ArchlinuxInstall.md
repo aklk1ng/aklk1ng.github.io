@@ -1,3 +1,6 @@
+---
+title ArchlinuxInstall
+---
 # Archlinux-KDE-Install
 
 ### 1. 连接网络(wifi)
