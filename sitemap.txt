@@ -1,0 +1,7 @@
+http://example.com/2022/06/18/C-Language-aspirations/
+http://example.com/2022/07/14/Manjaro/
+http://example.com/2022/06/17/Welcome/
+http://example.com/2022/07/14/ArchlinuxInstall/
+http://example.com/2022/07/14/hello-world/
+http://example.com/2022/06/16/Makefile-GDB/
+http://example.com/
