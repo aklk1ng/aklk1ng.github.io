@@ -64,6 +64,7 @@ vim /etc/pacman.d/mirrorlist
 新版的镜像会提供不同国家的镜像源，直接将合适的源粘贴到首行即可，这里提供几个源
 
 ``` bash
+Server = https://mirrors.163.com/archlinux/$repo/os/$arch   #网易
 Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch			#中科大
 Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch	#清华
 Server = https://mirror.0xem.ma/arch/$repo/os/$arch    #北美洲地区:加拿大
@@ -183,31 +184,17 @@ sudo vim /etc/sudoers				#若还是无法修改需更改文件权限
 #取消wheel行的注释
 ```
 
-### 20.添加archlinuxcn源
-
-``` bash
-su YOUR-NAME
-sudo vim /etc/pacman.conf
-#可以在multilib下方添加：
-[archlinuxcn]
-Server = https://repo.archlinuxcn.org/$arch
-sudo pacman -Syy
-sudo pacman -S archlinuxcn-keyring				#添加软件签名，如果不介意签名，可以再添加一行 SigLevel = Never
-sudo pacman -Syyu
-```
-
-### 21.安装显卡驱动
+### 20.安装显卡驱动
 
 ``` bash
 sudo pacman -S xf86-video-intel mesa		#intel用户,其他显卡可以在archlinux官网查询
 ```
 
-### 22.安装桌面环境
+### 21.安装桌面环境(非必要，也可以只装基础的桌面系统，后续使用窗口管理器)
 
 ``` bash
 sudo pacman -S xorg plasma kde-applications sddm network-manager-applet	#桌面基础包
 sudo systemctl enable sddm				#允许登陆欢迎服务
-sudo systemctl enable NetworkManager	#允许网络服务
 ```
 
 **基础功能包**
@@ -227,7 +214,7 @@ sudo pacman -S git wget kate bind                                               
 
 **如果存在找不到目标包，先舍弃即可，不要安装过多字体：在字体超过 255 种时，某些 QT 程序可能无法正确显示某些表情和符号**
 
-### 23.设置系统中文
+### 22.设置系统中文
 
 ``` bash
 sudo vim /etc/locale.conf
@@ -235,13 +222,13 @@ sudo vim /etc/locale.conf
 LANG=zh_CN.UTF-8
 ```
 
-### 24.安装yay
+### 23.安装yay
 
 ``` bash
 #对go进行换源,github相对来说好一些，实在不行修改hosts：
 go env -w GO111MODULE=on
 go env -w GOPROXY=https://goproxy.cn,direct
-#or：
+#or(测试后更有效)：
 echo "export GO111MODULE=on" >> ~/.profile
 echo "export GOPROXY=https://goproxy.cn" >> ~/.profile
 source ~/.profile
@@ -251,13 +238,13 @@ cd yay
 makepkg -si
 ```
 
-### 25.重启（欢迎来到archlinux-KDE）
+### 24.重启
 
 ```bash
 sudo reboot
 ```
 
-### 26.安装输入法
+### 25.安装输入法
 
 ``` bash
 sudo pacman -S fcitx5-im #基础包组
@@ -282,7 +269,7 @@ SDL_IM_MODULE=fcitx5
 * 回到输入法设置，点击`配置附加组件`，找到 *经典用户界面* 在主题里选择一个你喜欢的颜色 最后应用
 * 注销，重新登陆，就可以发现已经可以在各个软件中输入中文了
 
-### 27.启动蓝牙
+### 26.启动蓝牙
 
 ``` bash
 sudo pacman -S bluez bluez-utils
