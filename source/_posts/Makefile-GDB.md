@@ -477,7 +477,7 @@ Num Enb Expression
 (gdb) step
 ```
 
-##### 5.3.2 finish
+##### 5.4.2 finish
 
 ``` shell
 # 如果通过 s 单步调试进入到函数内部, 想要跳出这个函数体
