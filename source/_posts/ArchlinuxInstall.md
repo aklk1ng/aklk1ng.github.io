@@ -21,14 +21,13 @@
 * [17.再次配置](#17再次配置)
 * [18.开启32位支持库](#18开启32位支持库)
 * [19.添加普通用户](#19添加普通用户)
-* [20.添加archlinuxcn源(非必要,只是多一些国人更常用的软件)](#20添加archlinuxcn源非必要只是多一些国人更常用的软件)
-* [21.安装显卡驱动](#21安装显卡驱动)
-* [22.安装桌面环境](#22安装桌面环境)
-* [23.设置系统中文](#23设置系统中文)
-* [24.安装yay](#24安装yay)
-* [25.重启（欢迎来到archlinux :joy:）](#25重启欢迎来到archlinux-joy)
-* [26.安装输入法(有一些可能是找不到的)](#26安装输入法有一些可能是找不到的)
-* [27.启动蓝牙](#27启动蓝牙)
+* [20.安装显卡驱动](#20安装显卡驱动)
+* [21.安装桌面环境](#21安装桌面环境)
+* [22.设置系统中文](#22设置系统中文)
+* [23.安装yay](#23安装yay)
+* [24.重启（欢迎来到archlinux :joy:）](#24重启欢迎来到archlinux-joy)
+* [25.安装输入法(有一些可能是找不到的)](#25安装输入法有一些可能是找不到的)
+* [26.启动蓝牙](#26启动蓝牙)
 
 <!-- vim-markdown-toc -->
 ### 1. 连接网络(wifi)
@@ -212,26 +211,13 @@ sudo vim /etc/sudoers				#若还是无法修改需更改文件权限
 取消wheel行的注释
 ```
 
-### 20.添加archlinuxcn源(非必要,只是多一些国人更常用的软件)
-
-``` bash
-su YOUR-NAME
-sudo vim /etc/pacman.conf
-#可以在multilib下方添加：
-[archlinuxcn]
-Server = https://repo.archlinuxcn.org/$arch
-sudo pacman -Syy
-sudo pacman -S archlinuxcn-keyring				#添加软件签名，如果不介意签名，可以再添加一行 SigLevel = Never
-sudo pacman -Syyu
-```
-
-### 21.安装显卡驱动
+### 20.安装显卡驱动
 
 ``` bash
 sudo pacman -S xf86-video-intel mesa		#intel用户,其他显卡可以在archlinux官网查询
 ```
 
-### 22.安装桌面环境
+### 21.安装桌面环境
 **非必要，你可以使用window managers such as i3wm--what i used, dwm--what i use now, bspwm--what i haven't used and so on**
 ``` bash
 --- kde
@@ -257,7 +243,7 @@ sudo pacman -S git wget kate bind                                               
 
 **如果存在找不到目标包，先舍弃即可，不要安装过多字体：在字体超过 255 种时，某些 QT 程序可能无法正确显示某些表情和符号**
 
-### 23.设置系统中文
+### 22.设置系统中文
 
 ``` bash
 sudo vim /etc/locale.conf
@@ -265,7 +251,7 @@ sudo vim /etc/locale.conf
 LANG=zh_CN.UTF-8
 ```
 
-### 24.安装yay
+### 23.安装yay
 
 ``` bash
 #对go进行换源,github相对来说好一些，实在不行修改hosts：
@@ -281,13 +267,13 @@ cd yay
 makepkg -si
 ```
 
-### 25.重启（欢迎来到archlinux :joy:）
+### 24.重启（欢迎来到archlinux :joy:）
 
 ```bash
 sudo reboot
 ```
 
-### 26.安装输入法(有一些可能是找不到的)
+### 25.安装输入法(有一些可能是找不到的)
 
 ``` bash
 sudo pacman -S fcitx5-im #基础包组
@@ -312,10 +298,10 @@ SDL_IM_MODULE=fcitx5
 * 回到输入法设置，点击`配置附加组件`，找到 *经典用户界面* 在主题里选择一个你喜欢的颜色 最后应用
 * 注销，重新登陆，就可以发现已经可以在各个软件中输入中文了
 
-### 27.启动蓝牙
+### 26.启动蓝牙
 
 ``` bash
-sudo pacman -S bluez bluez-utils
+sudo pacman -S pulseaudio pulseaudio-alsa bluez bluez-utils
 sudo systemctl enable --now bluetooth
 #如果要连接蓝牙音频设备，需要安装 pulseaudio-bluetooth 并重启 pulseaudio
 sudo pacman -S pulseaudio-bluetooth
