@@ -3,15 +3,15 @@
 # --------------------------------------
 
 menu:
-   Home: / || fas fa-home
-   Archives: /archives/ || fas fa-archive
-   #Tags: /tags/ || fas fa-tags
-   #Categories: /categories/ || fas fa-folder-open
-   #List||fas fa-list:
-     #Music: /music/ || fas fa-music
-     #Movie: /movies/ || fas fa-video
-   #Link: /link/ || fas fa-link
-   #About: /about/ || fas fa-heart
+  Home: / || fas fa-home
+  Archives: /archives/ || fas fa-archive
+  #Tags: /tags/ || fas fa-tags
+  #Categories: /categories/ || fas fa-folder-open
+  #List||fas fa-list:
+  #Music: /music/ || fas fa-music
+  #Movie: /movies/ || fas fa-video
+  #Link: /link/ || fas fa-link
+  #About: /about/ || fas fa-heart
 
 # Code Blocks (代碼相關)
 # --------------------------------------
@@ -91,7 +91,7 @@ index_img:
 
 # If the banner of page not setting, it will show the top_img
 # 博客顶部圆的色彩配置
-default_top_img: 'linear-gradient(to right top,#d33983,#d74a89,#dc5a90,#df6897,#e3759e,#e578a1,#e87ca5,#ea7fa8,#ec7aa8,#ed74a9,#ef6ea9,#f068aa)'
+default_top_img: "linear-gradient(to right top,#d33983,#d74a89,#dc5a90,#df6897,#e3759e,#e578a1,#e87ca5,#ea7fa8,#ec7aa8,#ed74a9,#ef6ea9,#f068aa)"
 #'linear-gradient(20deg, #D16B7B,#E786A8,#F068AA)'
 #'linear-gradient(20deg, #fbd3e9,#bb377d)'
 #'linear-gradient(20deg, #EE9CA7,#ee9ca7,#FFDDE1)'
@@ -127,20 +127,19 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover:
-     - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
-     - https://fastly.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png
-     - https://s2.loli.net/2022/06/18/DLjntObYaWPFVTr.jpg
-     - https://s2.loli.net/2022/06/18/stfczXw3I7axTvH.jpg
-     - https://s2.loli.net/2022/06/18/D7hlVypx4weQPos.jpg
-     - https://s2.loli.net/2022/06/18/R8y395crkFJopHw.jpg
-     - https://s2.loli.net/2022/06/18/MuAc8ntBjbzChD7.jpg
-     - https://s2.loli.net/2022/06/18/C5RaPvOFLMGgqiz.jpg
-     - https://s2.loli.net/2022/06/18/czLVm1dSn8UjZia.jpg
-     - https://s2.loli.net/2022/06/18/kLqXirMoxaYwRh5.jpg
-     - https://s2.loli.net/2022/07/06/LMsSGvb85BgYqoc.jpg
-     - https://s2.loli.net/2022/07/06/fYE7BZGlcVrsiFW.jpg
-     - https://s2.loli.net/2022/07/06/iLBG6hUCVP1lRqs.jpg
-
+    - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
+    - https://fastly.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png
+    - https://s2.loli.net/2022/06/18/DLjntObYaWPFVTr.jpg
+    - https://s2.loli.net/2022/06/18/stfczXw3I7axTvH.jpg
+    - https://s2.loli.net/2022/06/18/D7hlVypx4weQPos.jpg
+    - https://s2.loli.net/2022/06/18/R8y395crkFJopHw.jpg
+    - https://s2.loli.net/2022/06/18/MuAc8ntBjbzChD7.jpg
+    - https://s2.loli.net/2022/06/18/C5RaPvOFLMGgqiz.jpg
+    - https://s2.loli.net/2022/06/18/czLVm1dSn8UjZia.jpg
+    - https://s2.loli.net/2022/06/18/kLqXirMoxaYwRh5.jpg
+    - https://s2.loli.net/2022/07/06/LMsSGvb85BgYqoc.jpg
+    - https://s2.loli.net/2022/07/06/fYE7BZGlcVrsiFW.jpg
+    - https://s2.loli.net/2022/07/06/iLBG6hUCVP1lRqs.jpg
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
@@ -329,7 +328,7 @@ valine:
 # https://waline.js.org/
 waline:
   serverURL: # Waline server address url
-  bg: # waline 
+  bg: # waline
   pageview: false
   option:
 
