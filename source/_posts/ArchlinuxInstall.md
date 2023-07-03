@@ -189,7 +189,7 @@ systemctl enable NetworkManager										#允许网络服务
 systemctl start NetworkManager										#开启
 nmcli dev wifi list													#进行网络扫描
 nmcli dev wifi connect "THE-WIRELESS-NAME" password "THE-PASSWORD"	#进行连接
-dd if=/dev/zero of=/swapfile bs=1M count=512 status=progress		#设置交换分区（非必要）
+dd if=/dev/xxx of=/swapfile bs=1M count=512 status=progress		#设置交换分区（非必要）
 chmod 600 /swapfile			#设置权限
 mkswap /swapfile			#格式化
 swapon /swapfile			#启用swapfile
@@ -226,7 +226,6 @@ sudo pacman -S xf86-video-intel mesa		#intel用户,其他显卡可以在archlinu
 --- kde
 sudo pacman -S xorg plasma kde-applications sddm network-manager-applet	#桌面基础包
 sudo systemctl enable sddm				#允许登陆欢迎服务
-sudo systemctl enable NetworkManager	#允许网络服务
 ```
 
 **基础功能包(可选则性安装)**
@@ -286,12 +285,13 @@ yay -S fcitx5-pinyin-moegirl #萌娘百科词库
 sudo pacman -S fcitx5-pinyin-zhwiki #中文维基百科词库
 sudo pacman -S fcitx5-material-color #主题
 
-sudo vim /etc/environment
+sudo vim ~/.xinitrc
 #添加如下内容：
-GTK_IM_MODULE=fcitx5
-QT_IM_MODULE=fcitx5
-XMODIFIERS=@im=fcitx5
-SDL_IM_MODULE=fcitx5
+export GTK_IM_MODULE=fcitx5
+export QT_IM_MODULE=fcitx5
+export XMODIFIERS=@im=fcitx5
+export SDL_IM_MODULE=fcitx5
+export GLFW_IM_MODULE=ibus # for kitty terminal
 ```
 
 **可能要重启后才能开始使用fcitx5输入法,如果你没有使用桌面环境，可以使用 fcitx5-configtool 工具来进行配置**
