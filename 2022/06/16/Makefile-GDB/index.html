@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Makefile/GDB（未完待续） | aklk1ng's blog</title><meta name="author" content="aklk1ng"><meta name="copyright" content="aklk1ng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Makefile与GDB1.Makefile0.Make 一个解释makefile中指令的命令工具  makefile带来的好处是——自动化编译，编写好后只需make命令，整个工程完全自动编译 1.规则每条规则的语法格式： 1234target1,target2...:depend1,depend2,...	command	......	......    1.1目标 目标与命令是相对应的 通过执">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Makefile&#x2F;GDB（未完待续）">
+<meta property="og:url" content="http://example.com/2022/06/16/Makefile-GDB/index.html">
+<meta property="og:site_name" content="aklk1ng&#39;s blog">
+<meta property="og:description" content="Makefile与GDB1.Makefile0.Make 一个解释makefile中指令的命令工具  makefile带来的好处是——自动化编译，编写好后只需make命令，整个工程完全自动编译 1.规则每条规则的语法格式： 1234target1,target2...:depend1,depend2,...	command	......	......    1.1目标 目标与命令是相对应的 通过执">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.loli.net/2022/06/18/R8y395crkFJopHw.jpg">
+<meta property="article:published_time" content="2022-06-16T11:43:44.000Z">
+<meta property="article:modified_time" content="2023-07-01T07:24:28.813Z">
+<meta property="article:author" content="aklk1ng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/06/18/R8y395crkFJopHw.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/06/16/Makefile-GDB/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Makefile/GDB（未完待续）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-01 15:24:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="aklk1ng's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/06/27/A23nuTgCmHN9q6s.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2022/06/18/R8y395crkFJopHw.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">aklk1ng's blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Makefile/GDB（未完待续）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-06-16T11:43:44.000Z" title="Created 2022-06-16 19:43:44">2022-06-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-07-01T07:24:28.813Z" title="Updated 2023-07-01 15:24:28">2023-07-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Makefile/GDB（未完待续）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Makefile与GDB"><a href="#Makefile与GDB" class="headerlink" title="Makefile与GDB"></a>Makefile与GDB</h1><h2 id="1-Makefile"><a href="#1-Makefile" class="headerlink" title="1.Makefile"></a>1.Makefile</h2><h3 id="0-Make"><a href="#0-Make" class="headerlink" title="0.Make"></a>0.Make</h3><ul>
+<li>一个解释makefile中指令的命令工具</li>
+</ul>
+<p>makefile带来的好处是——<strong>自动化编译</strong>，编写好后只需make命令，整个工程完全自动编译</p>
+<h3 id="1-规则"><a href="#1-规则" class="headerlink" title="1.规则"></a>1.规则</h3><p>每条规则的语法格式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">target1,target2...:depend1,depend2,...</span><br><span class="line">	command</span><br><span class="line">	......</span><br><span class="line">	......</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-1目标"><a href="#1-1目标" class="headerlink" title="1.1目标"></a>1.1目标</h4><ul>
+<li>目标与命令是相对应的</li>
+<li>通过执行规则的命令，可以执行动作但不生成任何文件，这样的目标被称为伪目标</li>
+</ul>
+<h4 id="1-2依赖"><a href="#1-2依赖" class="headerlink" title="1.2依赖"></a>1.2依赖</h4><ul>
+<li>若不需要依赖，可以不声明</li>
+<li>可以形成嵌套，也可以是多个依赖</li>
+</ul>
+<h4 id="1-3命令"><a href="#1-3命令" class="headerlink" title="1.3命令"></a>1.3命令</h4><ul>
+<li>一般情况下为shell指令</li>
+<li>每一个命令必须有一个tab缩进，且独占一行</li>
+</ul>
+<h3 id="2-工作原理"><a href="#2-工作原理" class="headerlink" title="2.工作原理"></a>2.工作原理</h3><h4 id="2-1规则的执行"><a href="#2-1规则的执行" class="headerlink" title="2.1规则的执行"></a>2.1规则的执行</h4><p><strong>在调用make命令编译程序的时候，make会首先找到Makefile文件中的第一个规则，分析并执行相关的动作</strong></p>
+<p>make命令执行的时候会根据文件的时间戳判断是否执行makefile文件中相关的命令</p>
+<ul>
+<li>正常情况下：<strong>目标时间戳&gt;依赖时间戳</strong>，如果执行make命令的时候检测到规则中的目标和依赖满足这个条件，那么规则的命令不会被执行</li>
+<li>如果<strong>目标时间戳&lt;依赖时间戳</strong>，在这种情况下会重新生成命令</li>
+<li>如果规则中的目标对应的文件根本不存在，规则中的命令肯定会执行</li>
+</ul>
+<h4 id="2-2文件的时间戳"><a href="#2-2文件的时间戳" class="headerlink" title="2.2文件的时间戳"></a>2.2文件的时间戳</h4><h4 id="2-3自动推导"><a href="#2-3自动推导" class="headerlink" title="2.3自动推导"></a>2.3自动推导</h4><p><strong>make中会进行一定的自动推导进行完善编译的逻辑性，不会完全依赖makefile</strong></p>
+<h3 id="3-变量"><a href="#3-变量" class="headerlink" title="3.变量"></a>3.变量</h3><h4 id="3-1自定义变量"><a href="#3-1自定义变量" class="headerlink" title="3.1自定义变量"></a>3.1自定义变量</h4><p>用户自己定义的变量，<strong>makefile中变量没有类型</strong>，直接创建然后使用即可</p>
+<h4 id="3-2预定义变量"><a href="#3-2预定义变量" class="headerlink" title="3.2预定义变量"></a>3.2预定义变量</h4><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>含义</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AR</td>
+<td>生成静态库文件的程序名称</td>
+<td>ar</td>
+</tr>
+<tr>
+<td>AS</td>
+<td>汇编编译器的名称</td>
+<td>as</td>
+</tr>
+<tr>
+<td>CC</td>
+<td>C语言编译器的名称</td>
+<td>cc</td>
+</tr>
+<tr>
+<td>CPP</td>
+<td>C语言预编译器的名称</td>
+<td>$(CC) -E</td>
+</tr>
+<tr>
+<td>CXX</td>
+<td>C++语言编译器的名称</td>
+<td>g++</td>
+</tr>
+<tr>
+<td>FC</td>
+<td>FORTRAN语言编译器的名称</td>
+<td>f77</td>
+</tr>
+<tr>
+<td>RM</td>
+<td>删除文件程序的名称</td>
+<td>rm -f</td>
+</tr>
+<tr>
+<td>CFLAGS</td>
+<td>C语言编译器的编译选项</td>
+<td>无默认值</td>
+</tr>
+<tr>
+<td>CPPFLAGS</td>
+<td>C++语言预编译器的编译选项</td>
+<td>无默认值</td>
+</tr>
+<tr>
+<td>CXXFLAGS</td>
+<td>c++语言编译器的编译选项</td>
+<td>无默认值</td>
+</tr>
+</tbody></table>
+<h4 id="3-3自动变量"><a href="#3-3自动变量" class="headerlink" title="3.3自动变量"></a>3.3自动变量</h4><p>自动变量用来表示这些规则中的目标文件和依赖文件，并且<strong>只能在规则的命令中使用</strong></p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$*</td>
+<td>表示目标文件的名称，不包含文件的拓展名</td>
+</tr>
+<tr>
+<td>$+</td>
+<td>表示所有的依赖文件，这些依赖文件以空格分开，按照出现的先后顺序，其中可能包含重复的依赖文件</td>
+</tr>
+<tr>
+<td>$&lt;</td>
+<td>表示依赖项中第一个依赖文件的名称</td>
+</tr>
+<tr>
+<td>$?</td>
+<td>依赖项中，所有比目标文件时间戳晚的依赖文件，依赖文件之间以空格分开</td>
+</tr>
+<tr>
+<td><strong>$@</strong></td>
+<td><strong>表示目标文件的名称，包含文件的拓展名</strong></td>
+</tr>
+<tr>
+<td><strong>%^</strong></td>
+<td><strong>依赖项中，所有不重复的依赖文件，文件之间以空格分开</strong></td>
+</tr>
+</tbody></table>
+<h3 id="4-模式匹配"><a href="#4-模式匹配" class="headerlink" title="4.模式匹配"></a>4.模式匹配</h3><p>通过一个规则模板(<strong>一定要使用自动变量</strong>)：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">%.o:%.c</span></span><br><span class="line">	gcc <span class="variable">$&lt;</span> -c</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-函数"><a href="#5-函数" class="headerlink" title="5.函数"></a>5.函数</h3><h4 id="5-1wildcard"><a href="#5-1wildcard" class="headerlink" title="5.1wildcard"></a>5.1wildcard</h4><p><em><strong>获取指定目录下指定类型的文件，其返回值以空格分开</strong></em></p>
+<p><strong>函数原型：</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">wildcard</span> PATTERN...)</span></span><br><span class="line">			<span class="comment">#参数：	指定某个目录，搜索这个路径下指定类型的文件</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数功能：<ul>
+<li>PATTERN指的是某个或多个目录下的对应的某种类型的文件</li>
+<li>可以指定多个目录，路径之间用空格分开</li>
+</ul>
+</li>
+<li>返回值：<ul>
+<li>得到的若干个文件的文件列表，文件民之间用空格分开</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-2patsubst"><a href="#5-2patsubst" class="headerlink" title="5.2patsubst"></a>5.2patsubst</h4><p><em><strong>按照指定的模式替换指定文件民的后缀</strong></em></p>
+<p><strong>函数原型：</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">patsubst</span> &lt;pattern&gt;,&lt;replacement&gt;,&lt;text&gt;)</span></span><br><span class="line">			<span class="comment">#指定的文件名	替换后的文件名	文件来源</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>参数功能：<ul>
+<li>pattern：模式字符串，指定被替换文件名的后缀<ul>
+<li>文件名与路径不关心，使用%表示即可</li>
+<li>在通配符后要指定要被替换掉后缀</li>
+</ul>
+</li>
+<li>replacement：模式字符串，指定参数pattern被替换后的后缀名<ul>
+<li>依旧使用%表示文件名</li>
+<li>在通配符后指定新的后缀名</li>
+</ul>
+</li>
+<li>text：存储被替换的原始数据</li>
+</ul>
+</li>
+<li>返回值：<ul>
+<li>函数返回被替换过后的字符串</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例：</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">src1=a.cpp b.cpp c.cpp</span><br><span class="line">src2=<span class="variable">$(<span class="built_in">patsubst</span> %.cpp,%.c,<span class="variable">$(src1)</span>)</span></span><br><span class="line"><span class="comment"># src2的值为：a.c b.c c.c</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-makefile的编写"><a href="#6-makefile的编写" class="headerlink" title="6.makefile的编写"></a>6.makefile的编写</h3><h4 id="伪目标"><a href="#伪目标" class="headerlink" title="伪目标"></a>伪目标</h4><p><strong>让makefile工具不去比较目标文件与依赖文件的时间戳</strong></p>
+<p>在makefile中声明一个伪目标要使用<code>&lt;.PHONY&gt;</code>关键字</p>
+<p>声明方式：**.PHONY:伪目标名称**</p>
+<h4 id="Tips："><a href="#Tips：" class="headerlink" title="Tips："></a>Tips：</h4><p>shell命令前的<code>-</code>可以让程序即使执行失败该条命令也不会终止，继续执行下一条命令</p>
+<h2 id="2-GDB"><a href="#2-GDB" class="headerlink" title="2.GDB"></a>2.GDB</h2><p>gdb也是GNU软件系统社区提供的调试器</p>
+<p><strong>gdb是一套字符界面的程序集，可以使用命令 gdb 加载要调试的程序</strong></p>
+<h3 id="1-调试准备"><a href="#1-调试准备" class="headerlink" title="1.调试准备"></a>1.调试准备</h3><p>项目如果是为了进行调试而编译时，必须要打开调试选项<code>gcc -g</code>，可选的选项为<code>-o0</code> <code>-Wall</code></p>
+<h3 id="2-启动和退出gdb"><a href="#2-启动和退出gdb" class="headerlink" title="2.启动和退出gdb"></a>2.启动和退出gdb</h3><h4 id="2-1启动gdb"><a href="#2-1启动gdb" class="headerlink" title="2.1启动gdb"></a>2.1启动gdb</h4><p><strong>在启动gdb进程后，被调试的程序没有被执行</strong></p>
+<p>直接在可执行程序的目录下执行gdb即可启动</p>
+<h4 id="2-2命令行传参"><a href="#2-2命令行传参" class="headerlink" title="2.2命令行传参"></a>2.2命令行传参</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb)	set args	#参数1	参数2 .。。。	设置参数</span><br><span class="line"></span><br><span class="line">(gdb)   show args   #查看设置的命令行参数</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3gdb中启动程序"><a href="#2-3gdb中启动程序" class="headerlink" title="2.3gdb中启动程序"></a>2.3gdb中启动程序</h4><p><strong>在gdb中，run命令和start命令只能执行一次</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb)run/r #如果程序设置了断点，会在第一个断点处停下，否则执行全部</span><br><span class="line">(gdb)start #只执行mian函数的第一行命令，等待输入后续其他gdb命令，如果还想让程序在start之后继续运行，或者在断点后继续运行，可以使用 continue/c 命令</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4退出gdb"><a href="#2-4退出gdb" class="headerlink" title="2.4退出gdb"></a>2.4退出gdb</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) quit/q</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-查看代码"><a href="#3-查看代码" class="headerlink" title="3.查看代码"></a>3.查看代码</h3><h4 id="3-1当前文件"><a href="#3-1当前文件" class="headerlink" title="3.1当前文件"></a>3.1当前文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(gdb)	list		  #从第一行开始显示	查看代码信息位于程序入口函数main所在的文件中，如果不进行文件切换main函数所在的文件就是当前文件</span><br><span class="line">(gdb)	list 行号		 #显示行号对应的上下文内容，默认只显示10行</span><br><span class="line">(gdb)	list 函数名	#显示函数的上下文内容，默认只显示10行</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如果还想继续查看代码，可以继续执行list命令也可以直接回车(会执行上一次执行的gdb命令)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2切换文件"><a href="#3-2切换文件" class="headerlink" title="3.2切换文件"></a>3.2切换文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) l 文件名:行号	#切换到指定文件中的对应行号的上下文内容，默认只显示10行</span><br><span class="line">(gdb) l 文件名:函数名 #切换到指定文件名中的指定函数上下文内容，默认只显示10行</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3设置显示的行数"><a href="#3-3设置显示的行数" class="headerlink" title="3.3设置显示的行数"></a>3.3设置显示的行数</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">以下的listsize可以更换为list</span></span><br><span class="line">(gdb) set listsize 行数	#设置一次显示的行数</span><br><span class="line">(gdb) show listsize       #显示行数</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-断点操作"><a href="#4-断点操作" class="headerlink" title="4.断点操作"></a>4.断点操作</h3><h4 id="4-1设置断点"><a href="#4-1设置断点" class="headerlink" title="4.1设置断点"></a>4.1设置断点</h4><ul>
+<li><p>设置普通断点到当前文件</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="built_in">break</span>==b</span></span><br><span class="line">(gdb) b 行号</span><br><span class="line">(gdb) b 函数名	#停止在函数的第一行</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>设置普通断点到某个非当前文件上</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) b 文件名:行号</span><br><span class="line">(gdb) b 文件名:函数名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置条件断点</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">必须要满足某个条件，程序才会停止在这个断点的位置上</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">通常情况下在循环内使用</span></span><br><span class="line">(gdb) b 行数 if 变量==某个值</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-2查看断点"><a href="#4-2查看断点" class="headerlink" title="4.2查看断点"></a>4.2查看断点</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">info == i</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查看设置的断点信息</span></span><br><span class="line">(gdb) i b #info break</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">举例</span></span><br><span class="line">(gdb) i b</span><br><span class="line">Num     Type           Disp Enb Address            What</span><br><span class="line">1       breakpoint     keep y   0x0000000000400cb5 in main() at test.cpp:12</span><br><span class="line">2       breakpoint     keep y   0x0000000000400cbd in main() at test.cpp:13</span><br><span class="line">3       breakpoint     keep y   0x0000000000400cec in main() at test.cpp:18</span><br><span class="line">4       breakpoint     keep y   0x00000000004009a5 in insertionSort(int*, int) </span><br><span class="line">                                                   at insert.cpp:8</span><br><span class="line">5       breakpoint     keep y   0x0000000000400cdd in main() at test.cpp:16</span><br><span class="line">6       breakpoint     keep y   0x00000000004009e5 in insertionSort(int*, int) </span><br><span class="line">                                                   at insert.cpp:16</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Num: 断点的编号，删除断点或者设置断点状态的时候都需要使用</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Enb: 当前断点的状态，y 表示断点可用，n 表示断点不可用</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">What: 描述断点被设置在了哪个文件的哪一行或者哪个函数上</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-3删除断点"><a href="#4-3删除断点" class="headerlink" title="4.3删除断点"></a>4.3删除断点</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">delete == del == d</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要 info b 查看断点的信息, 第一列就是编号</span></span><br><span class="line">(gdb) d 断点的编号1 [断点编号2 ...]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">举例:</span> </span><br><span class="line">(gdb) d 1          # 删除第1个断点</span><br><span class="line">(gdb) d 2 4 6      # 删除第2,4,6个断点</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除一个范围, 断点编号 num1 - numN 是一个连续区间</span></span><br><span class="line">(gdb) d num1-numN</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">举例, 删除第1到第5个断点</span></span><br><span class="line">(gdb) d 1-5</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4设置断点状态"><a href="#4-4设置断点状态" class="headerlink" title="4.4设置断点状态"></a>4.4设置断点状态</h4><ul>
+<li><p>设置断点无效</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">让断点失效之后, gdb调试过程中程序是不会停在这个位置的</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">disable</span> == dis</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置某一个或者某几个断点无效</span></span><br><span class="line">(gdb) dis 断点1的编号 [断点2的编号 ...]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置某个区间断点无效</span></span><br><span class="line">(gdb) dis 断点1编号-断点n编号</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让无效的断点生效</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">enable</span> == ena</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置某一个或者某几个断点有效</span></span><br><span class="line">(gdb) ena 断点1的编号 [断点2的编号 ...]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置某个区间断点有效</span></span><br><span class="line">(gdb) ena 断点1编号-断点n编号</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-调试命令"><a href="#5-调试命令" class="headerlink" title="5.调试命令"></a>5.调试命令</h3><h4 id="5-1继续运行gdb"><a href="#5-1继续运行gdb" class="headerlink" title="5.1继续运行gdb"></a>5.1继续运行gdb</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">continue</span> == c</span></span><br><span class="line">(gdb) continue</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-2手动打印信息"><a href="#5-2手动打印信息" class="headerlink" title="5.2手动打印信息"></a>5.2手动打印信息</h4><p><strong>当程序被某个断点阻塞之后，可以通过一些命令打印变量的名字或变量的类型，并且还可以跟踪打印某个变量的值</strong></p>
+<h5 id="5-2-1打印信息值"><a href="#5-2-1打印信息值" class="headerlink" title="5.2.1打印信息值"></a>5.2.1打印信息值</h5><table>
+<thead>
+<tr>
+<th>格式化字符(&#x2F;fmt)</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&#x2F;x</strong></td>
+<td>以十六进制的形式打印出整数</td>
+</tr>
+<tr>
+<td><strong>&#x2F;d</strong></td>
+<td>以有符号、十进制的形式打印出整数</td>
+</tr>
+<tr>
+<td><strong>&#x2F;u</strong></td>
+<td>以无符号、十进制的形式打印出整数</td>
+</tr>
+<tr>
+<td><strong>&#x2F;o</strong></td>
+<td>以八进制的形式打印出整数</td>
+</tr>
+<tr>
+<td><strong>&#x2F;t</strong></td>
+<td>以二进制的形式打印出整数</td>
+</tr>
+<tr>
+<td><strong>&#x2F;f</strong></td>
+<td>以浮点数的形式打印变量或表达式的值</td>
+</tr>
+<tr>
+<td><strong>&#x2F;c</strong></td>
+<td>以字符形式打印变量或表达式的值</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>print命令语法格式：</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">print</span> == p</span></span><br><span class="line">(gdb) p 变量名</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果变量是一个整形, 默认对应的值是以10进制格式输出, 其他格式请参考上表</span></span><br><span class="line">(gdb) p/fmt 变量名</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="5-2-2打印变量类型"><a href="#5-2-2打印变量类型" class="headerlink" title="5.2.2打印变量类型"></a>5.2.2打印变量类型</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">语法格式</span></span><br><span class="line">(gdb) ptype 变量名</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">打印变量类型</span></span><br><span class="line">(gdb) ptype i</span><br><span class="line">type = int</span><br><span class="line">(gdb) ptype array[i]</span><br><span class="line">type = int</span><br><span class="line">(gdb) ptype array</span><br><span class="line">type = int [12]</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-3自动打印信息"><a href="#5-3自动打印信息" class="headerlink" title="5.3自动打印信息"></a>5.3自动打印信息</h4><h5 id="5-3-1设置变量名自动显示"><a href="#5-3-1设置变量名自动显示" class="headerlink" title="5.3.1设置变量名自动显示"></a>5.3.1设置变量名自动显示</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在变量的有效取值范围内, 自动打印变量的值(设置一次, 以后就会自动显示)</span></span><br><span class="line">(gdb) display 变量名</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">以指定的整形格式打印变量的值, 关于 <span class="built_in">fmt</span> 的取值, 请参考 <span class="built_in">print</span> 命令</span></span><br><span class="line">(gdb) display/fmt 变量名</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-3-2查看自动显示列表"><a href="#5-3-2查看自动显示列表" class="headerlink" title="5.3.2查看自动显示列表"></a>5.3.2查看自动显示列表</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">info == i</span></span><br><span class="line">(gdb) info display</span><br><span class="line">Auto-display expressions now in effect:</span><br><span class="line">Num Enb Expression</span><br><span class="line">1:   y  i</span><br><span class="line">2:   y  array[i]</span><br><span class="line">3:   y  /x array[i]</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Num : 变量或表达式的编号，GDB 调试器为每个变量或表达式都分配有唯一的编号</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Enb : 表示当前变量（表达式）是处于激活状态还是禁用状态，如果处于激活状态（用 y 表示），则每次程序停止执行，该变量的值都会被打印出来；反之，如果处于禁用状态（用 n 表示），则该变量（表达式）的值不会被打印。</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">Expression ：被自动打印值的变量或表达式的名字</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="5-3-3取消自动显示"><a href="#5-3-3取消自动显示" class="headerlink" title="5.3.3取消自动显示"></a>5.3.3取消自动显示</h5><ul>
+<li><p>删除自动显示列表中的变量或表达式</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">命令中的 num 是通过 info display 得到的编号, 编号可以是一个或者多个</span></span><br><span class="line">(gdb) undisplay num [num1 ...]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">num1 - numN 表示一个范围</span></span><br><span class="line">(gdb) undisplay num1-numN</span><br><span class="line"></span><br><span class="line">(gdb) delete display num [num1 ...]</span><br><span class="line">(gdb) delete display num1-numN</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">举例</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看显示列表</span></span><br><span class="line">(gdb) info display</span><br><span class="line">Auto-display expressions now in effect:</span><br><span class="line">Num Enb Expression</span><br><span class="line">1:   y  i</span><br><span class="line">2:   y  array[i]</span><br><span class="line">3:   y  /x array[i]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除变量显示, 需要使用 info display 得到的变量/表达式编号</span></span><br><span class="line">(gdb) undisplay 1 2</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看显示列表, 只剩下一个了</span></span><br><span class="line">(gdb) i display</span><br><span class="line">Auto-display expressions now in effect:</span><br><span class="line">Num Enb Expression</span><br><span class="line">3:   y  /x array[i]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁用自动显示列表中处于激活状态的变量或表达式</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">命令中的 num 是通过 info display 得到的编号, 编号可以是一个或者多个</span></span><br><span class="line">(gdb) disable display num [num1 ...]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">num1 - numN 表示一个范围</span></span><br><span class="line">(gdb) disable display num1-numN</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启用自动显示列表中被禁用的变量或表达式</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">命令中的 num 是通过 info display 得到的编号, 编号可以是一个或者多个</span></span><br><span class="line">(gdb) enable  display num [num1 ...]</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">num1 - numN 表示一个范围</span></span><br><span class="line">(gdb) disable display num1-numN</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="5-4单步调试"><a href="#5-4单步调试" class="headerlink" title="5.4单步调试"></a>5.4单步调试</h4><p><strong>当程序阻塞到某个断点上之后，可以通过以下命令对程序进行单步调试</strong></p>
+<h5 id="5-4-1step"><a href="#5-4-1step" class="headerlink" title="5.4.1step"></a>5.4.1step</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从当前代码行位置, 一次调试当前行下的每一行代码</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">step == s</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果这一行是函数调用, 执行这个命令, 就可以进入到函数体的内部</span></span><br><span class="line">(gdb) step</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-4-2-finish"><a href="#5-4-2-finish" class="headerlink" title="5.4.2 finish"></a>5.4.2 finish</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果通过 s 单步调试进入到函数内部, 想要跳出这个函数体</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">如果函数体内存在有效断点，则无法跳出</span></span><br><span class="line">(gdb) finish</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-4-3next"><a href="#5-4-3next" class="headerlink" title="5.4.3next"></a>5.4.3next</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">next == n</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果这一行是函数调用, 执行这个命令, 不会进入到函数体的内部</span></span><br><span class="line">(gdb) next</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-4-4until"><a href="#5-4-4until" class="headerlink" title="5.4.4until"></a>5.4.4until</h5><p><strong>使用<code>until</code>命令可以直接跳出循环体，但有两个满足的条件：</strong></p>
+<ol>
+<li><strong>要跳出的循环体内部不能有有效的断点</strong></li>
+<li><strong>必须要在循环体的开始&#x2F;结束行执行该命令</strong></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) until</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-5设置变量值"><a href="#5-5设置变量值" class="headerlink" title="5.5设置变量值"></a>5.5设置变量值</h4><p><strong>使用以下方式可以直接对虚幻条件的哦按段</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以在循环中使用, 直接设置循环因子的值</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">假设某个变量的值在程序中==90的概率是5%, 这时候可以直接通过命令将这个变量值设置为90</span></span><br><span class="line">(gdb) set var 变量名=值</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="http://example.com">aklk1ng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/06/16/Makefile-GDB/">http://example.com/2022/06/16/Makefile-GDB/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://github.com/aklk1ng">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2022/06/18/R8y395crkFJopHw.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2022/06/17/Welcome/"><img class="prev-cover" src="https://s2.loli.net/2022/06/18/MuAc8ntBjbzChD7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Welcome</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2022/06/27/A23nuTgCmHN9q6s.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">aklk1ng</div><div class="author-info__description">Love yourself</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/aklk1ng"><i class="fab fa-github"></i><span>My Github</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Makefile%E4%B8%8EGDB"><span class="toc-number">1.</span> <span class="toc-text">Makefile与GDB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Makefile"><span class="toc-number">1.1.</span> <span class="toc-text">1.Makefile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-Make"><span class="toc-number">1.1.1.</span> <span class="toc-text">0.Make</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%84%E5%88%99"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1%E7%9B%AE%E6%A0%87"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">1.1目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2%E4%BE%9D%E8%B5%96"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">1.2依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">1.3命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.3.</span> <span class="toc-text">2.工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1%E8%A7%84%E5%88%99%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">2.1规则的执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2%E6%96%87%E4%BB%B6%E7%9A%84%E6%97%B6%E9%97%B4%E6%88%B3"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">2.2文件的时间戳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3%E8%87%AA%E5%8A%A8%E6%8E%A8%E5%AF%BC"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">2.3自动推导</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.4.</span> <span class="toc-text">3.变量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">3.1自定义变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">3.2预定义变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3%E8%87%AA%E5%8A%A8%E5%8F%98%E9%87%8F"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">3.3自动变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="toc-number">1.1.5.</span> <span class="toc-text">4.模式匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.6.</span> <span class="toc-text">5.函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1wildcard"><span class="toc-number">1.1.6.1.</span> <span class="toc-text">5.1wildcard</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2patsubst"><span class="toc-number">1.1.6.2.</span> <span class="toc-text">5.2patsubst</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-makefile%E7%9A%84%E7%BC%96%E5%86%99"><span class="toc-number">1.1.7.</span> <span class="toc-text">6.makefile的编写</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E7%9B%AE%E6%A0%87"><span class="toc-number">1.1.7.1.</span> <span class="toc-text">伪目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tips%EF%BC%9A"><span class="toc-number">1.1.7.2.</span> <span class="toc-text">Tips：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-GDB"><span class="toc-number">1.2.</span> <span class="toc-text">2.GDB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%B0%83%E8%AF%95%E5%87%86%E5%A4%87"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.调试准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8%E5%92%8C%E9%80%80%E5%87%BAgdb"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.启动和退出gdb</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1%E5%90%AF%E5%8A%A8gdb"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">2.1启动gdb</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BC%A0%E5%8F%82"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2.2命令行传参</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3gdb%E4%B8%AD%E5%90%AF%E5%8A%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">2.3gdb中启动程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4%E9%80%80%E5%87%BAgdb"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">2.4退出gdb</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.查看代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">3.1当前文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2%E5%88%87%E6%8D%A2%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">3.2切换文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3%E8%AE%BE%E7%BD%AE%E6%98%BE%E7%A4%BA%E7%9A%84%E8%A1%8C%E6%95%B0"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">3.3设置显示的行数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%96%AD%E7%82%B9%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.4.</span> <span class="toc-text">4.断点操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1%E8%AE%BE%E7%BD%AE%E6%96%AD%E7%82%B9"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">4.1设置断点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2%E6%9F%A5%E7%9C%8B%E6%96%AD%E7%82%B9"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">4.2查看断点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3%E5%88%A0%E9%99%A4%E6%96%AD%E7%82%B9"><span class="toc-number">1.2.4.3.</span> <span class="toc-text">4.3删除断点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4%E8%AE%BE%E7%BD%AE%E6%96%AD%E7%82%B9%E7%8A%B6%E6%80%81"><span class="toc-number">1.2.4.4.</span> <span class="toc-text">4.4设置断点状态</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.5.</span> <span class="toc-text">5.调试命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1%E7%BB%A7%E7%BB%AD%E8%BF%90%E8%A1%8Cgdb"><span class="toc-number">1.2.5.1.</span> <span class="toc-text">5.1继续运行gdb</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2%E6%89%8B%E5%8A%A8%E6%89%93%E5%8D%B0%E4%BF%A1%E6%81%AF"><span class="toc-number">1.2.5.2.</span> <span class="toc-text">5.2手动打印信息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-1%E6%89%93%E5%8D%B0%E4%BF%A1%E6%81%AF%E5%80%BC"><span class="toc-number">1.2.5.2.1.</span> <span class="toc-text">5.2.1打印信息值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-2%E6%89%93%E5%8D%B0%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.5.2.2.</span> <span class="toc-text">5.2.2打印变量类型</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3%E8%87%AA%E5%8A%A8%E6%89%93%E5%8D%B0%E4%BF%A1%E6%81%AF"><span class="toc-number">1.2.5.3.</span> <span class="toc-text">5.3自动打印信息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-1%E8%AE%BE%E7%BD%AE%E5%8F%98%E9%87%8F%E5%90%8D%E8%87%AA%E5%8A%A8%E6%98%BE%E7%A4%BA"><span class="toc-number">1.2.5.3.1.</span> <span class="toc-text">5.3.1设置变量名自动显示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-2%E6%9F%A5%E7%9C%8B%E8%87%AA%E5%8A%A8%E6%98%BE%E7%A4%BA%E5%88%97%E8%A1%A8"><span class="toc-number">1.2.5.3.2.</span> <span class="toc-text">5.3.2查看自动显示列表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-3%E5%8F%96%E6%B6%88%E8%87%AA%E5%8A%A8%E6%98%BE%E7%A4%BA"><span class="toc-number">1.2.5.3.3.</span> <span class="toc-text">5.3.3取消自动显示</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4%E5%8D%95%E6%AD%A5%E8%B0%83%E8%AF%95"><span class="toc-number">1.2.5.4.</span> <span class="toc-text">5.4单步调试</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-1step"><span class="toc-number">1.2.5.4.1.</span> <span class="toc-text">5.4.1step</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-2-finish"><span class="toc-number">1.2.5.4.2.</span> <span class="toc-text">5.4.2 finish</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-3next"><span class="toc-number">1.2.5.4.3.</span> <span class="toc-text">5.4.3next</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-4until"><span class="toc-number">1.2.5.4.4.</span> <span class="toc-text">5.4.4until</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-5%E8%AE%BE%E7%BD%AE%E5%8F%98%E9%87%8F%E5%80%BC"><span class="toc-number">1.2.5.5.</span> <span class="toc-text">5.5设置变量值</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/07/01/hello-world/" title="Hello World"><img src="https://s2.loli.net/2022/06/18/czLVm1dSn8UjZia.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2023/07/01/hello-world/" title="Hello World">Hello World</a><time datetime="2023-07-01T07:24:28.817Z" title="Created 2023-07-01 15:24:28">2023-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/01/ArchlinuxInstall/" title="Archlinux-KDE-Install"><img src="https://s2.loli.net/2022/06/18/MuAc8ntBjbzChD7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Archlinux-KDE-Install"/></a><div class="content"><a class="title" href="/2023/07/01/ArchlinuxInstall/" title="Archlinux-KDE-Install">Archlinux-KDE-Install</a><time datetime="2023-07-01T07:24:28.813Z" title="Created 2023-07-01 15:24:28">2023-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/01/Manjaro/" title="Manjaro"><img src="https://s2.loli.net/2022/06/18/D7hlVypx4weQPos.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Manjaro"/></a><div class="content"><a class="title" href="/2023/07/01/Manjaro/" title="Manjaro">Manjaro</a><time datetime="2023-07-01T07:24:28.813Z" title="Created 2023-07-01 15:24:28">2023-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/18/C-Language-aspirations/" title="C Language aspirations--（该文章渲染出现问题，见谅）"><img src="https://s2.loli.net/2022/07/06/iLBG6hUCVP1lRqs.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C Language aspirations--（该文章渲染出现问题，见谅）"/></a><div class="content"><a class="title" href="/2022/06/18/C-Language-aspirations/" title="C Language aspirations--（该文章渲染出现问题，见谅）">C Language aspirations--（该文章渲染出现问题，见谅）</a><time datetime="2022-06-18T13:25:52.000Z" title="Created 2022-06-18 21:25:52">2022-06-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/17/Welcome/" title="Welcome"><img src="https://s2.loli.net/2022/06/18/MuAc8ntBjbzChD7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Welcome"/></a><div class="content"><a class="title" href="/2022/06/17/Welcome/" title="Welcome">Welcome</a><time datetime="2022-06-17T13:32:44.000Z" title="Created 2022-06-17 21:32:44">2022-06-17</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2022/06/18/R8y395crkFJopHw.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By aklk1ng</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi~ Welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
